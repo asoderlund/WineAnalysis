@@ -2,10 +2,10 @@
 
 You can use the [editor on GitHub](https://github.com/asoderlund/WineAnalysis/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This is my final project for Stats 515 at George Mason University. 
 
-### Markdown
-
+### The Dataset
+The dataset comes from the UCI Machine Learning Repository ([Data](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)). 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
 ```markdown
