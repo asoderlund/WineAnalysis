@@ -1,12 +1,17 @@
-## Red Wine Analysis Project
-
-You can use the [editor on GitHub](https://github.com/asoderlund/WineAnalysis/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## Red Wine Analysis Project by Alyssa Soderlund
 
 This is my final project for Stats 515 at George Mason University. 
+Wine is a complex product with many facets that contribute to taste and quality. Understanding the major factors that attribute most to the quality of a wine is an important business analysis issue. My project attempts to understand what attributes impact the quality of a wine and how one can predict a wine’s quality by performing exploratory data analysis, variable subset selection, and creating multiple classification models. 
 
 ### The Dataset
 The dataset comes from the UCI Machine Learning Repository ([Data](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)). 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+
+
+
+
+
+
+
 
 ```markdown
 Syntax highlighted code block
