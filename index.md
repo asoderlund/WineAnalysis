@@ -6,9 +6,21 @@ Wine is a complex product with many facets that contribute to taste and quality.
 ### The Dataset
 The dataset comes from the UCI Machine Learning Repository ([Data](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)). 
 
+This dataset, from the University of California, Irvine machine learning repository, was collected between 2004-2007 (Cortez et al., 2009). It focuses specifically on the vinho verde red wine from Portugal. Each wine was assessed in a laboratory for 11 different physicochemical features. Then, a quality score from 1 to 10 was derived by measuring the median of a minimum of three blind sensory tests conducted by wine experts (Cortez et al., 2009). 
 
-
-
+The attributes of this dataset are: 
+- Alcohol percentage
+- Volatile acidity 
+- Citric acid
+- Fixed acidity
+- Residual sugar
+- Density
+- pH
+- Free sulfur dioxide 
+- Total sulfur dioxide
+- Chlorides
+- Sulphates
+- Quality
 
 
 
