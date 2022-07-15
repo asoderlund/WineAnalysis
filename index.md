@@ -29,22 +29,11 @@ Table 1 shows a summary of all the variables. There are no quality scores below 
 
    _Table 1_
 
-A histogram of the quality scores shows the distribution of the dependent variable in Figure 1. This shows that a large majority of the scores lie between 4 and 6, so most of the wines included in the dataset are of average quality.
+A histogram of the quality scores shows the distribution of the dependent variable in Figure 1. This shows that a large majority of the scores lie between 4 and 6, so most of the wines included in the dataset are of average quality. The lack of data for very low and very high-quality wines may mean the models created from this dataset are less robust to added instances.
 
 ![](./images/fig1.png)
 
    _Figure 1_
-
-
-
-```
-   ggplot(data= redData, aes(quality)) + 
-    geom_histogram(breaks= seq(2, 8, by=1), col="black", fill="cyan") + 
-    labs(title= "Histogram for Quality of Red Wines") + hw
-```
-
-
-
 
 The scatterplot matrix in Figure 2 shows the distributions of all variables along the diagonal and a scatterplot for each pair of variables with a smooth showing the correlation between the pairs. A few variables have very skewed distributions, including residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, and sulphates. These variables will benefit from a log transformation to fix the skew later. 
 
@@ -54,65 +43,12 @@ Other important aspects of Figure 2 are the pairs of variables with strong corre
 
    _Figure 2_
 
-<details><summary>View Code</summary>
-<p>
-
-```splom(redData, as.matrix = TRUE,
-      xlab = '',main = "Red Wine Data",
-      pscale = 0, varname.col = "red",
-      varname.cex = 0.56, varname.font = 2,
-      axis.text.cex = 0.4, axis.text.col = "red",
-      axis.text.font = 2, axis.line.tck = .5,
-      panel = function(x,y,...) {
-          panel.grid(h = -1,v = -1,...)
-          panel.hexbinplot(x,y,xbins = 12,...,
-                           border = gray(.7),
-                           trans = function(x)x^1)
-          panel.loess(x , y, ...,
-                      lwd = 2,col = 'purple')},
-      diag.panel = function(x, ...){
-          yrng <- current.panel.limits()$ylim
-          d <- density(x, na.rm = TRUE)
-          d$y <- with(d, yrng[1] + 0.95 * diff(yrng) * y / max(y) )
-          panel.lines(d,col = gray(.8),lwd = 2)
-          diag.panel.splom(x, ...) })
-```
-
-</p>
-</details>
-
-
-
-**include box plots?**
 
 For the final aspect of the exploratory data analysis, I created a 3D interactive scatterplot using the plotly library in Figure 3 (Sievert, 2020). The axes are the three variables showing a strong correlation with quality: alcohol percentage, volatile acidity, and sulphates. The colors are based on the quality score. Scrolling over a specific point shows the values for all three variables and its quality score. Most of the higher-quality wines are grouped together on the left side of the plot, with higher alcohol levels, lower volatile acidity, and moderate to high sulphate levels. This graphic also shows that outliers tend to have lower quality scores. Very high or low values for any one of the variables make the wine less desirable. 
 
 ![](./images/fig3.png)
 
    _Figure 3_
-
-<details><summary>View Code</summary>
-<p>
-
-```
-redData %>% 
-  plot_ly(x=~alcohol,y=~volatile.acidity,z= ~sulphates, color=~quality, 
-          hoverinfo = 'text',
-          text = ~paste('Quality:', quality,
-                        '<br>Alcohol:', alcohol,
-                        '<br>Volatile Acidity:', volatile.acidity,
-                        '<br>Sulphates:', sulphates)) %>% 
-  add_markers() %>%
-  layout(title = "Wine Quality: Sulphates, Volatile Acidity, and Alcohol",
-         scene = list(xaxis = list(title = 'Alcohol (vol.%)'),
-                      yaxis = list(title = 'Volatile Acidity (g(acetic acid)/dm<sup>3</sup>)'),
-                      zaxis = list(title = 'Sulphates (g(potassium sulphate)/dm<sup>3</sup>)')))
-```
-
-</p>
-</details>
-
-
 
 ### Variable Selection
 
@@ -123,50 +59,13 @@ I began by running best subset selection with a maximum of 10 variables included
 ![](./images/fig4.png)
 
    _Figure 4_
-   
-<details><summary>View Code</summary>
-<p>
-
-```
-regfit.full=regsubsets (quality~.,redData[,1:12],nvmax=10)
-reg.summary=summary(regfit.full)
-reg.summary
-
-par(mfrow=c(2,2))
-plot(reg.summary$rss ,xlab="Number of Variables ",ylab="RSS",
-     type="l", main="Variable Subset Selection: RSS")
-plot(reg.summary$adjr2 ,xlab="Number of Variables ",
-     ylab="Adjusted RSq",type="l", main="Variable Subset Selection: Adjusted RSq")
-# let's choose 6 variables
-
-regfit.fwd=regsubsets (quality???.,data=redData[,1:12] , nvmax=6,
-                       method ="forward")
-summary (regfit.fwd)
-
-regfit.bwd=regsubsets (quality???.,data=redData[,1:12] , nvmax=6,
-                       method ="backward")
-summary (regfit.bwd)
-```
-
-</p>
-</details>
-
-
+  
 
 The best subset selection method, forward, and backward stepwise selection all produced the same results. As shown in Figure 5, the six variables that should be included are volatile acidity, chlorides, total sulfur dioxide, pH, sulphates, and alcohol percentage. 
 
 ![](./images/fig5.png)
 
    _Figure 5_
-
-<details><summary>View Code</summary>
-<p>
-
-```plot(regfit.full, main="Best Subset Selection for Indpendent Variables", scale="r2", labels=c("Intercept","Fixed Acidity","Volatile Acidity","Citric Acid","Residual Sugar", "Chlorides","Free S.D.","Total S.D.","Density","pH","Sulphates","Alcohol"))```
-
-</p>
-</details>
-
 
 ### Tree Based Models
 
@@ -189,8 +88,6 @@ The variable importance plot in Figure 7 indicates that the six most important v
 ![](./images/fig7.png)
 
 _Figure 7_
-
-### add code???
 
 ### Logistic Regression Model
 Because the predictor variable is binary, I tried logistic regression to see if it would perform better than the random forest regression model. Before performing logistic regression, I log-transformed several of the skewed variables, including residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, and sulphates. Then I created a logistic regression model using the six variables identified in the best subset selection. 
