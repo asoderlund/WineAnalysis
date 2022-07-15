@@ -47,6 +47,7 @@ A histogram of the quality scores shows the distribution of the dependent variab
 </p>
 </details>
 
+
 The scatterplot matrix in Figure 2 shows the distributions of all variables along the diagonal and a scatterplot for each pair of variables with a smooth showing the correlation between the pairs. A few variables have very skewed distributions, including residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, and sulphates. These variables will benefit from a log transformation to fix the skew later. 
 
 Other important aspects of Figure 2 are the pairs of variables with strong correlations. Variables that are correlated with each other include all of the acid variables (fixed acidity, volatile acidity, and citric acid), fixed acidity and density, fixed acidity and pH, and chlorides and sulphates. Variables that are strongly correlated with quality based on the scatterplot matrix are volatile acidity (which makes the wine taste like vinegar when high), sulphates, and alcohol percentage. This is the first indication that these variables may be strong predictors of quality.
@@ -83,6 +84,7 @@ Other important aspects of Figure 2 are the pairs of variables with strong corre
 </p>
 </details>
 
+
 **include box plots?**
 
 For the final aspect of the exploratory data analysis, I created a 3D interactive scatterplot using the plotly library in Figure 3 (Sievert, 2020). The axes are the three variables showing a strong correlation with quality: alcohol percentage, volatile acidity, and sulphates. The colors are based on the quality score. Scrolling over a specific point shows the values for all three variables and its quality score. Most of the higher-quality wines are grouped together on the left side of the plot, with higher alcohol levels, lower volatile acidity, and moderate to high sulphate levels. This graphic also shows that outliers tend to have lower quality scores. Very high or low values for any one of the variables make the wine less desirable. 
@@ -110,6 +112,29 @@ redData %>%
 
 </p>
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ```markdown
