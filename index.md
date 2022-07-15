@@ -55,11 +55,61 @@ Other important aspects of Figure 2 are the pairs of variables with strong corre
 
    _Figure 2_
 
+<details><summary>View Code</summary>
+<p>
+
+```R
+   splom(redData, as.matrix = TRUE,
+      xlab = '',main = "Red Wine Data",
+      pscale = 0, varname.col = "red",
+      varname.cex = 0.56, varname.font = 2,
+      axis.text.cex = 0.4, axis.text.col = "red",
+      axis.text.font = 2, axis.line.tck = .5,
+      panel = function(x,y,...) {
+          panel.grid(h = -1,v = -1,...)
+          panel.hexbinplot(x,y,xbins = 12,...,
+                           border = gray(.7),
+                           trans = function(x)x^1)
+          panel.loess(x , y, ...,
+                      lwd = 2,col = 'purple')},
+      diag.panel = function(x, ...){
+          yrng <- current.panel.limits()$ylim
+          d <- density(x, na.rm = TRUE)
+          d$y <- with(d, yrng[1] + 0.95 * diff(yrng) * y / max(y) )
+          panel.lines(d,col = gray(.8),lwd = 2)
+          diag.panel.splom(x, ...) })
+```
+
+</p>
+</details>
+
 **include box plots?**
 
+For the final aspect of the exploratory data analysis, I created a 3D interactive scatterplot using the plotly library in Figure 3 (Sievert, 2020). The axes are the three variables showing a strong correlation with quality: alcohol percentage, volatile acidity, and sulphates. The colors are based on the quality score. Scrolling over a specific point shows the values for all three variables and its quality score. Most of the higher-quality wines are grouped together on the left side of the plot, with higher alcohol levels, lower volatile acidity, and moderate to high sulphate levels. This graphic also shows that outliers tend to have lower quality scores. Very high or low values for any one of the variables make the wine less desirable. 
+
+![](./images/fig3.png)
 
 
+<details><summary>View Code</summary>
+<p>
 
+```R
+redData %>% 
+  plot_ly(x=~alcohol,y=~volatile.acidity,z= ~sulphates, color=~quality, 
+          hoverinfo = 'text',
+          text = ~paste('Quality:', quality,
+                        '<br>Alcohol:', alcohol,
+                        '<br>Volatile Acidity:', volatile.acidity,
+                        '<br>Sulphates:', sulphates)) %>% 
+  add_markers() %>%
+  layout(title = "Wine Quality: Sulphates, Volatile Acidity, and Alcohol",
+         scene = list(xaxis = list(title = 'Alcohol (vol.%)'),
+                      yaxis = list(title = 'Volatile Acidity (g(acetic acid)/dm<sup>3</sup>)'),
+                      zaxis = list(title = 'Sulphates (g(potassium sulphate)/dm<sup>3</sup>)')))
+```
+
+</p>
+</details>
 
 
 ```markdown
