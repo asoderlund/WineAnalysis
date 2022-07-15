@@ -1,9 +1,9 @@
-## Red Wine Analysis Project by Alyssa Soderlund
+# Red Wine Analysis Project by Alyssa Soderlund
 
 This is my final project for Stats 515 at George Mason University. 
 Wine is a complex product with many facets that contribute to taste and quality. Understanding the major factors that attribute most to the quality of a wine is an important business analysis issue. My project attempts to understand what attributes impact the quality of a wine and how one can predict a wine’s quality by performing exploratory data analysis, variable subset selection, and creating multiple classification models. 
 
-### The Dataset
+## The Dataset
 The dataset comes from the UCI Machine Learning Repository ([Data](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)). 
 
 This dataset, from the University of California, Irvine machine learning repository, was collected between 2004-2007 (Cortez et al., 2009). It focuses specifically on the vinho verde red wine from Portugal. Each wine was assessed in a laboratory for 11 different physicochemical features. Then, a quality score from 1 to 10 was derived by measuring the median of a minimum of three blind sensory tests conducted by wine experts (Cortez et al., 2009). 
@@ -22,7 +22,7 @@ The attributes of this dataset are:
 - Sulphates
 - Quality
 
-### Exploratory Data Analysis
+## Exploratory Data Analysis
 Table 1 shows a summary of all the variables. There are no quality scores below 3 or above 8, so there’s no really high or low quality wines. This may skew results because there’s no data on the makeup of a “perfect” wine. 
 
 ![](./images/Table 1.PNG)
@@ -54,7 +54,7 @@ Most of the higher-quality wines are grouped together on the left side of the pl
 
    _Figure 3_
 
-### Variable Selection
+## Variable Selection
 
 In the scatterplot matrix in Figure 2, the bottom row of scatterplots shows the correlations of each variable with quality score. Not all the independent variables are correlated with quality, so not all of them will be useful in classifying the wines. I tried several methods to find the best subset of variables to classify and predict quality score. 
 
@@ -71,15 +71,15 @@ The best subset selection method, forward, and backward stepwise selection all p
 
    _Figure 5_
 
-### Tree Based Models
+## Tree Based Models
 
 The first set of classification models I created are two different tree-based models: the basic classification tree and random forest regression. I created a new binary variable which indicates whether a wine is good quality or not. A wine is good quality if it has a quality score of 6 or higher. Both models were created using a training set and validated using a test set, with a 75-25 split. The goal of the models is to classify a wine based on its physiochemical features. 
 
-## Basic Classification Tree
+### Basic Classification Tree
 
 Starting with the basic classification tree using the six-variable subset identified in the previous section, I created the tree using the _rpart_ package. 
 
-# Results
+*Results*
 
 A graph of the basic classification tree is shown in Figure 6. Running the decision tree on the test set resulted in a p-value of 3.973e-16 for the model, which shows statistical significance. The accuracy based on the confusion matrix is 73%. 
 
@@ -90,11 +90,11 @@ The variable importance output showed that alcohol percentage was the most impor
    _Figure 6_
 
 
-## Random Forest Regression Model
+### Random Forest Regression Model
 
 The other tree-based model is a random forest regression model using the _randomForest_ package. In this one, all 11 independent variables are included to provide a more accurate variable importance plot. I used the default of 500 trees and 3 variables at each split. 
 
-# Results
+Results
 
 The out-of-bag error estimate from the training set model is 20%, and the accuracy for the test model is 85%, which is a significant improvement over the basic classification tree. The model’s p-value is less than 2e-16 which shows statistical significance. 
 
@@ -104,13 +104,13 @@ The variable importance plot in Figure 7 indicates that the six most important v
 
 _Figure 7_
 
-### Logistic Regression Model
+## Logistic Regression Model
 
 Because the predictor variable is binary, I tried logistic regression to see if it would perform better than the random forest regression model. 
 
 Before performing logistic regression, I log-transformed several of the skewed variables, including residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, and sulphates. Then I created a logistic regression model using the six variables identified in the best subset selection. 
 
-# Results
+Results
 
 From the p-values for the independent variables shown in the output, pH is not identified as significant with a p-value of about 0.89. This makes sense as pH was also not included in the six most important variables for random forest regression. The p-value for the model based on the test set is less than 2e-16, which shows statistical significance. The accuracy is 75%, which is better than the basic classification tree but not as accurate as the random forest regression. 
 
@@ -120,11 +120,11 @@ I created an effects graph from the _effects_ package to show how each variable 
 
 _Figure 8_
 
-### Clustering Model
+## Clustering Model
 
 The last classification model is a cluster analysis using k-means clustering. I expected that performing k-means clustering with two clusters would result in one cluster of bad wines and one of good wines. 
 
-# Results
+Results
 
 Running k-means classification from the cluster package didn’t have a great degree of accuracy. The first cluster, which is highlighted in red in Figure 8, was 64% bad wines, and the second cluster, highlighted in blue, is 59% good wines. Most outliers are included in the first cluster. From the exploratory data analysis, we know that outliers tend to be bad wines, which is possibly why cluster 1 contains a majority of bad wines. This was not an efficient model for this dataset.
 
@@ -133,7 +133,7 @@ Running k-means classification from the cluster package didn’t have a great de
 
 _Figure 9_
 
-### Final Remarks
+# Final Remarks
 
 - The most important factors contributing to quality for red wine are alcohol percentage, volatile acidity, sulphates, chlorides, and total sulfur dioxide. These are consistently the strongest predictors for each type of model. Density and pH are weaker predictors, as each were identified as important for some models and not others. 
 - Of all the models, random forest regression was the most accurate and statistically significant. Logistic regression performed slightly better than the basic decision tree but was more statistically significant. Cluster analysis was not very successful at clustering good and bad wines together and may have been skewed by outliers.
