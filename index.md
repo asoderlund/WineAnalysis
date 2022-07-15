@@ -168,13 +168,69 @@ The best subset selection method, forward, and backward stepwise selection all p
 </details>
 
 
+### Tree Based Models
+
+The first set of classification models I created are two different tree-based models: the basic classification tree and random forest regression. I created a new binary variable which indicates whether a wine is good quality or not. A wine is good quality if it has a quality score of 6 or higher. The goal of the models is to classify a wine based on its physiochemical features.
+
+Starting with the basic classification tree using the six-variable subset identified in the previous section, I created the tree using the rpart package (Therneau & Atkinson, 2019). Both models were created using a training set and validated using a test set. 
+
+A graph of the basic classification tree is shown in Figure 6. Running the decision tree on the test set resulted in a p-value of 3.973e-16 for the model, which shows statistical significance. The accuracy based on the confusion matrix is 73%. The variable importance output showed that alcohol percentage was the most important variable, and chlorides and pH level were the least important variables. The classification tree is a valid one, even though it could be more accurate.
+
+![](./images/fig6.png)
+
+   _Figure 6_
+
+<details><summary>View Code</summary>
+<p>
+
+```# create variable for good/bad wine (quality 6 or greater is good)
+redData$isGood<-ifelse(redData$quality>=6,"Good","Bad")
+
+# train/test split
+set.seed(1)
+sample = sample.split(redData$isGood, SplitRatio = .75)
+train = subset(redData, sample == TRUE)
+test  = subset(redData, sample == FALSE)
+
+# Decision tree 
+rtree  = rpart( isGood ~volatile.acidity+chlorides+total.sulfur.dioxide+pH+sulphates+alcohol, data=train)
+rpart.plot( rtree, faclen=12, extra=1, digits=3, main="Classification Tree: Good or Bad Wine")
+summary(rtree)
+    
+# use decision tree to make prediction
+rtreeTest <- predict(rtree, newdata = test, type='class')
+confusionMatrix(factor(rtreeTest),factor(test$isGood))
+```
+
+</p>
+</details>
 
 
+The other tree-based model is a random forest regression model using the randomForest package (Liaw & Wiener, 2002). In this one, all 11 independent variables are included to provide a more accurate variable importance plot. I used the default of 500 trees and 3 variables at each split. The out-of-bag error estimate from the training set model is 20%, and the accuracy for the test model is 85%, which is a significant improvement over the basic classification tree. The model’s p-value is less than 2e-16 which shows statistical significance. 
 
+The variable importance plot in Figure 7 indicates that the six most important variables according to the random forest model are nearly the same as the six variables chosen in the best subset selection methods, with density replacing pH in the top six. This indicates that pH is one of the weaker predictors of quality as compared to alcohol, sulfates, and volatile acidity.
 
+![](./images/fig7.png)
 
+   _Figure 7_
 
+<details><summary>View Code</summary>
+<p>
 
+```redwineRF<-randomForest(factor(isGood)~.-quality,data=train)
+redwineRF
+# oob error is 20%
+importance(redwineRF)
 
+varImpPlot(redwineRF, main=" \n Variable Importance Red Wine",
+           labels=c("Residual Sugar","Free Sulfur Dioxide","Fixed Acidity",
+                    "Citric Acid","pH","Chlorides","Density",
+                    "Total Sulfur Dioxide","Volatile Acidity","Sulphates","Alcohol"))
 
+yhat = predict(redwineRF, newdata = test)
+confusionMatrix(factor(yhat), factor(test$isGood))
+```
+
+</p>
+</details>
 
