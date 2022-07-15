@@ -212,7 +212,7 @@ The variable importance plot in Figure 7 indicates that the six most important v
 
 ![](./images/fig7.png)
 
-   _Figure 7_
+_Figure 7_
 
 <details><summary>View Code</summary>
 <p>
@@ -233,4 +233,5 @@ confusionMatrix(factor(yhat), factor(test$isGood))
 
 </p>
 </details>
-
+   
+###Logistic Regression Model
