@@ -214,24 +214,9 @@ The variable importance plot in Figure 7 indicates that the six most important v
 
 _Figure 7_
 
-<details><summary>View Code</summary>
-<p>
-
-```redwineRF<-randomForest(factor(isGood)~.-quality,data=train)
-redwineRF
-# oob error is 20%
-importance(redwineRF)
-
-varImpPlot(redwineRF, main=" \n Variable Importance Red Wine",
-           labels=c("Residual Sugar","Free Sulfur Dioxide","Fixed Acidity",
-                    "Citric Acid","pH","Chlorides","Density",
-                    "Total Sulfur Dioxide","Volatile Acidity","Sulphates","Alcohol"))
-
-yhat = predict(redwineRF, newdata = test)
-confusionMatrix(factor(yhat), factor(test$isGood))
-```
-
-</p>
-</details>
    
-###Logistic Regression Model
+   
+   
+   
+   
+ 
