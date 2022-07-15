@@ -79,7 +79,7 @@ The first set of classification models I created are two different tree-based mo
 
 Starting with the basic classification tree using the six-variable subset identified in the previous section, I created the tree using the _rpart_ package. 
 
-*Results*
+#####Results
 
 A graph of the basic classification tree is shown in Figure 6. Running the decision tree on the test set resulted in a p-value of 3.973e-16 for the model, which shows statistical significance. The accuracy based on the confusion matrix is 73%. 
 
@@ -94,7 +94,7 @@ The variable importance output showed that alcohol percentage was the most impor
 
 The other tree-based model is a random forest regression model using the _randomForest_ package. In this one, all 11 independent variables are included to provide a more accurate variable importance plot. I used the default of 500 trees and 3 variables at each split. 
 
-Results
+#####Results
 
 The out-of-bag error estimate from the training set model is 20%, and the accuracy for the test model is 85%, which is a significant improvement over the basic classification tree. The model’s p-value is less than 2e-16 which shows statistical significance. 
 
@@ -110,7 +110,7 @@ Because the predictor variable is binary, I tried logistic regression to see if 
 
 Before performing logistic regression, I log-transformed several of the skewed variables, including residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, and sulphates. Then I created a logistic regression model using the six variables identified in the best subset selection. 
 
-Results
+#####Results
 
 From the p-values for the independent variables shown in the output, pH is not identified as significant with a p-value of about 0.89. This makes sense as pH was also not included in the six most important variables for random forest regression. The p-value for the model based on the test set is less than 2e-16, which shows statistical significance. The accuracy is 75%, which is better than the basic classification tree but not as accurate as the random forest regression. 
 
@@ -124,7 +124,7 @@ _Figure 8_
 
 The last classification model is a cluster analysis using k-means clustering. I expected that performing k-means clustering with two clusters would result in one cluster of bad wines and one of good wines. 
 
-Results
+#####Results
 
 Running k-means classification from the cluster package didn’t have a great degree of accuracy. The first cluster, which is highlighted in red in Figure 8, was 64% bad wines, and the second cluster, highlighted in blue, is 59% good wines. Most outliers are included in the first cluster. From the exploratory data analysis, we know that outliers tend to be bad wines, which is possibly why cluster 1 contains a majority of bad wines. This was not an efficient model for this dataset.
 
