@@ -180,30 +180,6 @@ A graph of the basic classification tree is shown in Figure 6. Running the decis
 
    _Figure 6_
 
-<details><summary>View Code</summary>
-<p>
-
-```# create variable for good/bad wine (quality 6 or greater is good)
-redData$isGood<-ifelse(redData$quality>=6,"Good","Bad")
-
-# train/test split
-set.seed(1)
-sample = sample.split(redData$isGood, SplitRatio = .75)
-train = subset(redData, sample == TRUE)
-test  = subset(redData, sample == FALSE)
-
-# Decision tree 
-rtree  = rpart( isGood ~volatile.acidity+chlorides+total.sulfur.dioxide+pH+sulphates+alcohol, data=train)
-rpart.plot( rtree, faclen=12, extra=1, digits=3, main="Classification Tree: Good or Bad Wine")
-summary(rtree)
-    
-# use decision tree to make prediction
-rtreeTest <- predict(rtree, newdata = test, type='class')
-confusionMatrix(factor(rtreeTest),factor(test$isGood))
-```
-
-</p>
-</details>
 
 
 The other tree-based model is a random forest regression model using the randomForest package (Liaw & Wiener, 2002). In this one, all 11 independent variables are included to provide a more accurate variable importance plot. I used the default of 500 trees and 3 variables at each split. The out-of-bag error estimate from the training set model is 20%, and the accuracy for the test model is 85%, which is a significant improvement over the basic classification tree. The model’s p-value is less than 2e-16 which shows statistical significance. 
@@ -214,9 +190,30 @@ The variable importance plot in Figure 7 indicates that the six most important v
 
 _Figure 7_
 
-   
-   
-   
-   
-   
- 
+### add code???
+
+### Logistic Regression Model
+Because the predictor variable is binary, I tried logistic regression to see if it would perform better than the random forest regression model. Before performing logistic regression, I log-transformed several of the skewed variables, including residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, and sulphates. Then I created a logistic regression model using the six variables identified in the best subset selection. 
+
+From the p-values for the independent variables shown in the output, pH is not identified as significant with a p-value of about 0.89. This makes sense as pH was also not included in the six most important variables for random forest regression. The p-value for the model based on the test set is less than 2e-16, which shows statistical significance. The accuracy is 75%, which is better than the basic classification tree but not as accurate as the random forest regression. 
+
+I created an effects graph from the effects package (Fox & Weisberg, 2019) to show how each variable affected the logistic regression model. The plot for pH is on the bottom left of the graphic. From this effects graph, it appears that the quality correlation is weak. The blue shading indicates that for low and high pH values, there are large confidence intervals. This most likely is due to the fact that most wines have a pH value near 3.4; the further away from 3.4 the pH value is, the less confident the model is in its prediction. There may be an advantage to leaving out pH. 
+
+![](./images/fig8.png)
+
+_Figure 8_
+
+### Clustering Model
+
+The last classification model is a cluster analysis using k-means clustering. I expected that performing k-means clustering with two clusters would result in one cluster of bad wines and one of good wines. Running k-means classification from the cluster package (Maechler et al. 2021) didn’t have a great degree of accuracy. The first cluster, which is highlighted in red in Figure 8, was 64% bad wines, and the second cluster, highlighted in blue, is 59% good wines. Most outliers are included in the first cluster. From the exploratory data analysis, we know that outliers tend to be bad wines, which is possibly why cluster 1 contains a majority of bad wines. This was not an efficient model for this dataset.
+
+
+![](./images/fig9.png)
+
+_Figure 9_
+
+### Final Remarks
+
+The most important factors contributing to quality for red wine are alcohol percentage, volatile acidity, sulphates, chlorides, and total sulfur dioxide. These are consistently the strongest predictors for each type of model. Density and pH are weaker predictors, as each were identified as important for some models and not others. Of all the models, random forest regression was the most accurate and statistically significant. Logistic regression performed slightly better than the basic decision tree but was more statistically significant. Cluster analysis was not very successful at clustering good and bad wines together and may have been skewed by outliers.
+
+Overall, based on the strongest predictors and their correlation with quality score, it seems that more alcoholic, less sweet, and lower acidity wines are more favored in quality testing. Further work in this subject could include analyzing sales data for each type of wine compared to the quality score assigned to the wine. Another possible application of these models would be creating a recommendations system based on a customer’s previous wine preferences. 
