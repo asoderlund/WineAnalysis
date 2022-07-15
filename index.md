@@ -82,6 +82,7 @@ Other important aspects of Figure 2 are the pairs of variables with strong corre
 </details>
 
 
+
 **include box plots?**
 
 For the final aspect of the exploratory data analysis, I created a 3D interactive scatterplot using the plotly library in Figure 3 (Sievert, 2020). The axes are the three variables showing a strong correlation with quality: alcohol percentage, volatile acidity, and sulphates. The colors are based on the quality score. Scrolling over a specific point shows the values for all three variables and its quality score. Most of the higher-quality wines are grouped together on the left side of the plot, with higher alcohol levels, lower volatile acidity, and moderate to high sulphate levels. This graphic also shows that outliers tend to have lower quality scores. Very high or low values for any one of the variables make the wine less desirable. 
@@ -110,6 +111,7 @@ redData %>%
 
 </p>
 </details>
+
 
 
 ### Variable Selection
@@ -151,9 +153,19 @@ summary (regfit.bwd)
 
 
 
+The best subset selection method, forward, and backward stepwise selection all produced the same results. As shown in Figure 5, the six variables that should be included are volatile acidity, chlorides, total sulfur dioxide, pH, sulphates, and alcohol percentage. 
 
+![](./images/fig5.png)
 
+   _Figure 5_
 
+<details><summary>View Code</summary>
+<p>
+
+```plot(regfit.full, main="Best Subset Selection for Indpendent Variables", scale="r2", labels=c("Intercept","Fixed Acidity","Volatile Acidity","Citric Acid","Residual Sugar", "Chlorides","Free S.D.","Total S.D.","Density","pH","Sulphates","Alcohol"))```
+
+</p>
+</details>
 
 
 
