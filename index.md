@@ -25,7 +25,7 @@ The attributes of this dataset are:
 ### Exploratory Data Analysis
 Table 1 shows a summary of all the variables. There are no quality scores below 3 or above 8, so there’s no really high or low quality wines. This may skew results because there’s no data on the makeup of a “perfect” wine. 
 
-![Figure 1](https://github.com/asoderlund/WineAnalysis/blob/gh-pages/images/Table%201.PNG)
+![](images/fig1.png)
 
 A histogram of the quality scores shows the distribution of the dependent variable in Figure 1. This shows that a large majority of the scores lie between 4 and 6, so most of the wines included in the dataset are of average quality.
 
