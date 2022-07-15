@@ -27,13 +27,13 @@ Table 1 shows a summary of all the variables. There are no quality scores below 
 
 ![](./images/Table 1.PNG)
 
-_Table 1_
+        _Table 1_
 
 A histogram of the quality scores shows the distribution of the dependent variable in Figure 1. This shows that a large majority of the scores lie between 4 and 6, so most of the wines included in the dataset are of average quality.
 
 ![](./images/fig1.png)
 
-_Figure 1_
+        _Figure 1_
 
 The scatterplot matrix in Figure 2 shows the distributions of all variables along the diagonal and a scatterplot for each pair of variables with a smooth showing the correlation between the pairs. A few variables have very skewed distributions, including residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, and sulphates. These variables will benefit from a log transformation to fix the skew later. 
 
@@ -41,7 +41,7 @@ Other important aspects of Figure 2 are the pairs of variables with strong corre
 
 ![](./images/fig2.png)
 
-_Figure 2_
+    _Figure 2_
 
 **include box plots?**
 
