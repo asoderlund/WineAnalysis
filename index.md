@@ -35,8 +35,7 @@ A histogram of the quality scores shows the distribution of the dependent variab
 
    _Figure 1_
 
-<details><summary>View Code</summary>
-<p>
+
 
 ```
    ggplot(data= redData, aes(quality)) + 
@@ -44,8 +43,7 @@ A histogram of the quality scores shows the distribution of the dependent variab
     labs(title= "Histogram for Quality of Red Wines") + hw
 ```
 
-</p>
-</details>
+
 
 
 The scatterplot matrix in Figure 2 shows the distributions of all variables along the diagonal and a scatterplot for each pair of variables with a smooth showing the correlation between the pairs. A few variables have very skewed distributions, including residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, and sulphates. These variables will benefit from a log transformation to fix the skew later. 
