@@ -57,8 +57,7 @@ Other important aspects of Figure 2 are the pairs of variables with strong corre
 <details><summary>View Code</summary>
 <p>
 
-```
-   splom(redData, as.matrix = TRUE,
+```splom(redData, as.matrix = TRUE,
       xlab = '',main = "Red Wine Data",
       pscale = 0, varname.col = "red",
       varname.cex = 0.56, varname.font = 2,
@@ -76,8 +75,7 @@ Other important aspects of Figure 2 are the pairs of variables with strong corre
           d <- density(x, na.rm = TRUE)
           d$y <- with(d, yrng[1] + 0.95 * diff(yrng) * y / max(y) )
           panel.lines(d,col = gray(.8),lwd = 2)
-          diag.panel.splom(x, ...) })
-```
+          diag.panel.splom(x, ...) })```
 
 </p>
 </details>
@@ -89,6 +87,7 @@ For the final aspect of the exploratory data analysis, I created a 3D interactiv
 
 ![](./images/fig3.png)
 
+   _Figure 3_
 
 <details><summary>View Code</summary>
 <p>
@@ -112,11 +111,42 @@ redData %>%
 </details>
 
 
+### Variable Selection
 
+In the scatterplot matrix in Figure 2, the bottom row of scatterplots shows the correlations of each variable with quality score. Not all the independent variables are correlated with quality, so not all of them will be useful in classifying the wines. I tried several methods to find the best subset of variables to classify and predict quality score. 
 
+I began by running best subset selection with a maximum of 10 variables included using the leaps package (Lumley, 2020). To choose an appropriate number of variables to include in the subset, I plotted the residual sum of squares and adjusted R2 versus the number of variables (Figure 4). The plots show that both RSS and R2 start to level off at about six variables, so that is a reasonable choice for the number of variables to include in the subset.
 
+![](./images/fig4.png)
 
+   _Figure 4_
+   
+<details><summary>View Code</summary>
+<p>
 
+```
+regfit.full=regsubsets (quality~.,redData[,1:12],nvmax=10)
+reg.summary=summary(regfit.full)
+reg.summary
+
+par(mfrow=c(2,2))
+plot(reg.summary$rss ,xlab="Number of Variables ",ylab="RSS",
+     type="l", main="Variable Subset Selection: RSS")
+plot(reg.summary$adjr2 ,xlab="Number of Variables ",
+     ylab="Adjusted RSq",type="l", main="Variable Subset Selection: Adjusted RSq")
+# let's choose 6 variables
+
+regfit.fwd=regsubsets (quality???.,data=redData[,1:12] , nvmax=6,
+                       method ="forward")
+summary (regfit.fwd)
+
+regfit.bwd=regsubsets (quality???.,data=redData[,1:12] , nvmax=6,
+                       method ="backward")
+summary (regfit.bwd)
+```
+
+</p>
+</details>
 
 
 
