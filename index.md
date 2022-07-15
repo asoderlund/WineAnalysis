@@ -75,7 +75,8 @@ Other important aspects of Figure 2 are the pairs of variables with strong corre
           d <- density(x, na.rm = TRUE)
           d$y <- with(d, yrng[1] + 0.95 * diff(yrng) * y / max(y) )
           panel.lines(d,col = gray(.8),lwd = 2)
-          diag.panel.splom(x, ...) })```
+          diag.panel.splom(x, ...) })
+```
 
 </p>
 </details>
