@@ -38,11 +38,11 @@ A histogram of the quality scores shows the distribution of the dependent variab
 <details><summary>View Code</summary>
 <p>
 
-`
+```
    ggplot(data= redData, aes(quality)) + 
     geom_histogram(breaks= seq(2, 8, by=1), col="black", fill="cyan") + 
     labs(title= "Histogram for Quality of Red Wines") + hw
-`
+```
 
 </p>
 </details>
@@ -58,7 +58,7 @@ Other important aspects of Figure 2 are the pairs of variables with strong corre
 <details><summary>View Code</summary>
 <p>
 
-`
+```
    splom(redData, as.matrix = TRUE,
       xlab = '',main = "Red Wine Data",
       pscale = 0, varname.col = "red",
@@ -78,7 +78,7 @@ Other important aspects of Figure 2 are the pairs of variables with strong corre
           d$y <- with(d, yrng[1] + 0.95 * diff(yrng) * y / max(y) )
           panel.lines(d,col = gray(.8),lwd = 2)
           diag.panel.splom(x, ...) })
-`
+```
 
 </p>
 </details>
@@ -93,7 +93,7 @@ For the final aspect of the exploratory data analysis, I created a 3D interactiv
 <details><summary>View Code</summary>
 <p>
 
-`
+```
 redData %>% 
   plot_ly(x=~alcohol,y=~volatile.acidity,z= ~sulphates, color=~quality, 
           hoverinfo = 'text',
@@ -106,7 +106,7 @@ redData %>%
          scene = list(xaxis = list(title = 'Alcohol (vol.%)'),
                       yaxis = list(title = 'Volatile Acidity (g(acetic acid)/dm<sup>3</sup>)'),
                       zaxis = list(title = 'Sulphates (g(potassium sulphate)/dm<sup>3</sup>)')))
-`
+```
 
 </p>
 </details>
