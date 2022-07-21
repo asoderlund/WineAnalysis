@@ -1,6 +1,7 @@
 # Red Wine Analysis Project by Alyssa Soderlund
 
-This is my final project for Stats 515 at George Mason University. 
+This is my final project for Stats 515 at George Mason University. See a project I created in Python here: [Nearest Earth Objects Analysis Project](https://asoderlund.github.io/NEO-Analysis/).
+
 Wine is a complex product with many facets that contribute to taste and quality. Understanding the major factors that attribute most to the quality of a wine is an important business analysis issue. My project attempts to understand what attributes impact the quality of a wine and how one can predict a wine’s quality by performing exploratory data analysis, variable subset selection, and creating multiple classification models. 
 
 ## The Dataset
@@ -139,3 +140,5 @@ _Figure 9_
 - Of all the models, random forest regression was the most accurate and statistically significant. Logistic regression performed slightly better than the basic decision tree but was more statistically significant. Cluster analysis was not very successful at clustering good and bad wines together and may have been skewed by outliers.
 
 Overall, based on the strongest predictors and their correlation with quality score, it seems that more alcoholic, less sweet, and lower acidity wines are more favored in quality testing. 
+
+#### Thank you so much for reading my project. I appreciate your time. If you have any advice for improving this project, I would love to hear it! Please email me at ahowe615@gmail.com with any comments.
